@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model btc_prices {
+    id               Int      @id @default(autoincrement())
+    timestamp        DateTime @db.Timestamp()
+    brains_price     Float
+    yahoo_price      Float
+    time_price       Float
+    blockchain_price Float
+    binance_price    Float
+    lunarcrush_price Float
+    messari_price    Float
+    nomics_price     Float
+    coingecko_price  Float
+    coindesk_price   Float
+    bitfinex_price   Float
+}
