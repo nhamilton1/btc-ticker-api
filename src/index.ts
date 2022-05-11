@@ -10,7 +10,7 @@ server.use(helmet());
 server.use(cors());
 
 server.get("/", (req: Request, res: Response, next: NextFunction) => {
-    res.send("Hello World!");
+  res.status(201).send("sanity test");
 });
 server.use("/btc", btcRouter);
 
