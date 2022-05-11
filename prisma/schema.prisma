@@ -24,4 +24,5 @@ model btc_prices {
     coingecko_price  Float
     coindesk_price   Float
     bitfinex_price   Float
+    coinbase_price   Float
 }

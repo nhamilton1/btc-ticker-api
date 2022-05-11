@@ -83,6 +83,11 @@ const coingeckoPrice =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin";
 const coindeskPrice = "https://api.coindesk.com/v1/bpi/currentprice.json";
 const bitfinexPrice = "https://api-pub.bitfinex.com/v2/tickers?symbols=tBTCUSD";
+const coinbasePrice = "https://api.coinbase.com/v2/prices/spot?currency=USD";
+
+interface coinbaseInter {
+  amount: string;
+}
 
 type btcPrices = {
   brainsPrice: number;
@@ -96,6 +101,7 @@ type btcPrices = {
   coingeckoPrice: number;
   coindeskPrice: number;
   bitfinexPrice: number;
+  coinbasePrice: number;
   timestamp: Date;
 };
 
@@ -119,6 +125,7 @@ const main = async () => {
     const resCoingeckoPrice = await axios.get(coingeckoPrice);
     const resCoindeskPrice = await axios.get<coindeskInter>(coindeskPrice);
     const resBitfinexPrice = await axios.get(bitfinexPrice);
+    const resCoinbasePrice = await axios.get<coinbaseInter>(coinbasePrice);
 
     results.push({
       brainsPrice: resBrainsPrice.data.price,
@@ -132,6 +139,7 @@ const main = async () => {
       coingeckoPrice: resCoingeckoPrice.data[0].current_price,
       coindeskPrice: resCoindeskPrice.data.bpi.USD.rate_float,
       bitfinexPrice: resBitfinexPrice.data[0][1],
+      coinbasePrice: parseFloat(resCoinbasePrice.data.amount),
       timestamp: new Date(),
     });
 
@@ -141,6 +149,5 @@ const main = async () => {
   }
   console.timeEnd();
 };
-
 
 main();

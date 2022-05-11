@@ -14,6 +14,7 @@ type btcPrices = {
     coingeckoPrice: number,
     coindeskPrice: number,
     bitfinexPrice: number,
+    coinbasePrice: number,
     timestamp: Date,
 };
 
@@ -32,6 +33,7 @@ async function createBtcPrices(data: btcPrices[]) {
         yahoo_price: data[0].yahooPrice,
         timestamp: data[0].timestamp,
         brains_price: data[0].brainsPrice,
+        coinbase_price: data[0].coinbasePrice,
     }
   });
 }

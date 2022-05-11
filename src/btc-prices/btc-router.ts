@@ -86,20 +86,28 @@ const coingeckoPrice =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin";
 const coindeskPrice = "https://api.coindesk.com/v1/bpi/currentprice.json";
 const bitfinexPrice = "https://api-pub.bitfinex.com/v2/tickers?symbols=tBTCUSD";
+const coinbasePrice = "https://api.coinbase.com/v2/prices/spot?currency=USD";
+
+interface coinbaseInter {
+  data: {
+    amount: string;
+  };
+}
 
 type btcPrices = {
-    brainsPrice: number,
-    yahooPrice: number,
-    timePrice: number,
-    blockchainPrice: number,
-    binancePrice: number,
-    lunarcrushPrice: number,
-    messariPrice: number,
-    nomicsPrice: number,
-    coingeckoPrice: number,
-    coindeskPrice: number,
-    bitfinexPrice: number,
-    timestamp: Date,
+  brainsPrice: number;
+  yahooPrice: number;
+  timePrice: number;
+  blockchainPrice: number;
+  binancePrice: number;
+  lunarcrushPrice: number;
+  messariPrice: number;
+  nomicsPrice: number;
+  coingeckoPrice: number;
+  coindeskPrice: number;
+  bitfinexPrice: number;
+  coinbasePrice: number;
+  timestamp: Date;
 };
 
 router.get("/", async (_req: Request, res: Response, next: NextFunction) => {
@@ -122,6 +130,7 @@ router.get("/", async (_req: Request, res: Response, next: NextFunction) => {
     const resCoingeckoPrice = await axios.get(coingeckoPrice);
     const resCoindeskPrice = await axios.get<coindeskInter>(coindeskPrice);
     const resBitfinexPrice = await axios.get(bitfinexPrice);
+    const resCoinbasePrice = await axios.get<coinbaseInter>(coinbasePrice);
 
     results.push({
       brainsPrice: resBrainsPrice.data.price,
@@ -135,7 +144,8 @@ router.get("/", async (_req: Request, res: Response, next: NextFunction) => {
       coingeckoPrice: resCoingeckoPrice.data[0].current_price,
       coindeskPrice: resCoindeskPrice.data.bpi.USD.rate_float,
       bitfinexPrice: resBitfinexPrice.data[0][1],
-      timestamp: new Date()
+      coinbasePrice: parseFloat(resCoinbasePrice.data.data.amount),
+      timestamp: new Date(),
     });
 
     await add(results);
