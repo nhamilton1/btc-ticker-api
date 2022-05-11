@@ -86,7 +86,9 @@ const bitfinexPrice = "https://api-pub.bitfinex.com/v2/tickers?symbols=tBTCUSD";
 const coinbasePrice = "https://api.coinbase.com/v2/prices/spot?currency=USD";
 
 interface coinbaseInter {
-  amount: string;
+  data: {
+    amount: string;
+  };
 }
 
 type btcPrices = {
@@ -139,7 +141,7 @@ const main = async () => {
       coingeckoPrice: resCoingeckoPrice.data[0].current_price,
       coindeskPrice: resCoindeskPrice.data.bpi.USD.rate_float,
       bitfinexPrice: resBitfinexPrice.data[0][1],
-      coinbasePrice: parseFloat(resCoinbasePrice.data.amount),
+      coinbasePrice: parseFloat(resCoinbasePrice.data.data.amount),
       timestamp: new Date(),
     });
 
