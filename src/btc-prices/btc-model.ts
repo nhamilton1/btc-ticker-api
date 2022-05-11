@@ -41,3 +41,24 @@ async function createBtcPrices(data: btcPrices[]) {
 export const add = async (item: btcPrices[]) => {
   return await createBtcPrices(item);
 };
+
+
+export const getAll = async () => {
+  return await prisma.btc_prices.findMany({
+    select: {
+      binance_price: true,
+      blockchain_price: true,
+      bitfinex_price: true,
+      coingecko_price: true,
+      coindesk_price: true,
+      lunarcrush_price: true,
+      messari_price: true,
+      nomics_price: true,
+      time_price: true,
+      yahoo_price: true,
+      timestamp: true,
+      brains_price: true,
+      coinbase_price: true,
+    }
+  });
+}
