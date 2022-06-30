@@ -18,6 +18,7 @@ const fields = [
   "timestamp",
   "brains_price",
   "coinbase_price",
+  "coinmetrics_price",
 ];
 const opts = { fields };
 

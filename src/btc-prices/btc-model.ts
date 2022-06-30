@@ -15,6 +15,7 @@ type btcPrices = {
     coindeskPrice: number,
     bitfinexPrice: number,
     coinbasePrice: number,
+    coinmetricsPrice: number,
     timestamp: Date,
 };
 
@@ -34,6 +35,7 @@ async function createBtcPrices(data: btcPrices[]) {
         timestamp: data[0].timestamp,
         brains_price: data[0].brainsPrice,
         coinbase_price: data[0].coinbasePrice,
+        coinmetrics_price: data[0].coinmetricsPrice,
     }
   });
 }
@@ -59,6 +61,7 @@ export const getAll = async () => {
       timestamp: true,
       brains_price: true,
       coinbase_price: true,
+      coinmetrics_price: true,
     }
   });
 }

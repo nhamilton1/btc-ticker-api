@@ -1,5 +1,6 @@
 import axios from "axios";
 import { add } from "./src/btc-prices/btc-model";
+require('dotenv').config();
 
 interface brainsInter {
   price: number;
@@ -67,6 +68,23 @@ interface coindeskInter {
   };
 }
 
+
+interface coinbaseInter {
+  data: {
+    amount: string;
+  };
+}
+
+interface coinmetricsInter {
+  data: [
+    {
+      assest: string;
+      time: Date;
+      ReferenceRate: string
+    }
+  ]
+}
+
 const brainsPrice = "https://insights.braiins.com/api/v1.0/price-stats";
 const yahooPrice = "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD";
 const timePrice =
@@ -84,12 +102,8 @@ const coingeckoPrice =
 const coindeskPrice = "https://api.coindesk.com/v1/bpi/currentprice.json";
 const bitfinexPrice = "https://api-pub.bitfinex.com/v2/tickers?symbols=tBTCUSD";
 const coinbasePrice = "https://api.coinbase.com/v2/prices/spot?currency=USD";
+const coinmetricsPrice = process.env.COINMETRICS_URL;
 
-interface coinbaseInter {
-  data: {
-    amount: string;
-  };
-}
 
 type btcPrices = {
   brainsPrice: number;
@@ -104,6 +118,7 @@ type btcPrices = {
   coindeskPrice: number;
   bitfinexPrice: number;
   coinbasePrice: number;
+  coinmetricsPrice: number;
   timestamp: Date;
 };
 
@@ -128,6 +143,7 @@ const main = async () => {
     const resCoindeskPrice = await axios.get<coindeskInter>(coindeskPrice);
     const resBitfinexPrice = await axios.get(bitfinexPrice);
     const resCoinbasePrice = await axios.get<coinbaseInter>(coinbasePrice);
+    const resCoinmetricsPrice = await axios.get<coinmetricsInter>(coinmetricsPrice!);
 
     results.push({
       brainsPrice: resBrainsPrice.data.price,
@@ -142,6 +158,7 @@ const main = async () => {
       coindeskPrice: resCoindeskPrice.data.bpi.USD.rate_float,
       bitfinexPrice: resBitfinexPrice.data[0][1],
       coinbasePrice: parseFloat(resCoinbasePrice.data.data.amount),
+      coinmetricsPrice: Number(resCoinmetricsPrice.data.data[0].ReferenceRate),
       timestamp: new Date(),
     });
 
