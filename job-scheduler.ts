@@ -160,7 +160,7 @@ const main = async () => {
       coindeskPrice: resCoindeskPrice.data.bpi.USD.rate_float,
       bitfinexPrice: resBitfinexPrice.data[0][1],
       coinbasePrice: parseFloat(resCoinbasePrice.data.data.amount),
-      coinmetricsPrice: Number(resCoinmetricsPrice.data.data[1].ReferenceRate),
+      coinmetricsPrice: Number(resCoinmetricsPrice.data.data[0].ReferenceRate),
       timestamp: new Date(),
     });
 
