@@ -20,6 +20,19 @@ type btcPrices = {
 };
 
 async function createBtcPrices(data: btcPrices[]) {
+  // get the highest id value from btc_prices
+
+  const highestId = await prisma.btc_prices.findFirst({
+    orderBy: {
+      id: "desc",
+    },
+    take: 1,
+    select: {
+      id: true,
+    }
+  })
+ 
+
   return await prisma.btc_prices.create({
     data: {
         binance_price: data[0].binancePrice,
@@ -36,6 +49,7 @@ async function createBtcPrices(data: btcPrices[]) {
         brains_price: data[0].brainsPrice,
         coinbase_price: data[0].coinbasePrice,
         coinmetrics_price: data[0].coinmetricsPrice,
+        id: highestId!.id + 1,
     }
   });
 }

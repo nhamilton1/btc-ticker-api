@@ -11,19 +11,19 @@ datasource db {
 }
 
 model btc_prices {
-    id               Int      @id @default(autoincrement())
-    timestamp        DateTime @db.Timestamp()
-    brains_price     Float
-    yahoo_price      Float
-    time_price       Float
-    blockchain_price Float
-    binance_price    Float
-    lunarcrush_price Float
-    messari_price    Float
-    nomics_price     Float
-    coingecko_price  Float
-    coindesk_price   Float
-    bitfinex_price   Float
-    coinbase_price   Float
+    id                Int @id 
+    timestamp         DateTime @db.Timestamp()
+    brains_price      Float
+    yahoo_price       Float
+    time_price        Float
+    blockchain_price  Float
+    binance_price     Float
+    lunarcrush_price  Float
+    messari_price     Float
+    nomics_price      Float
+    coingecko_price   Float
+    coindesk_price    Float
+    bitfinex_price    Float
+    coinbase_price    Float
     coinmetrics_price Float?
 }

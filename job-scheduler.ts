@@ -1,6 +1,8 @@
 import axios from "axios";
 import { add } from "./src/btc-prices/btc-model";
-require('dotenv').config();
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 interface brainsInter {
   price: number;
@@ -76,13 +78,13 @@ interface coinbaseInter {
 }
 
 interface coinmetricsInter {
-  data: [
+  data: Array<
     {
       assest: string;
       time: Date;
       ReferenceRate: string
     }
-  ]
+  >
 }
 
 const brainsPrice = "https://insights.braiins.com/api/v1.0/price-stats";
@@ -158,7 +160,7 @@ const main = async () => {
       coindeskPrice: resCoindeskPrice.data.bpi.USD.rate_float,
       bitfinexPrice: resBitfinexPrice.data[0][1],
       coinbasePrice: parseFloat(resCoinbasePrice.data.data.amount),
-      coinmetricsPrice: Number(resCoinmetricsPrice.data.data[0].ReferenceRate),
+      coinmetricsPrice: Number(resCoinmetricsPrice.data.data[1].ReferenceRate),
       timestamp: new Date(),
     });
 
