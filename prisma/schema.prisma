@@ -27,3 +27,8 @@ model btc_prices {
     coinbase_price    Float
     coinmetrics_price Float?
 }
+
+model coinmetrics {
+    timestamp         DateTime @db.Timestamp() @id @unique
+    coinmetrics_price Float
+}
